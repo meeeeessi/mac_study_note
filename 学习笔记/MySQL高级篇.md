@@ -30,7 +30,22 @@ cat /etc/group|grep mysql
 
 设置mysql密码：/usr/bin/mysqladmin -u 用户名 password 密码
 
+
+
+阿里云mysql密码是：toot
+
+
+
 ## 关于系统服务chkconfig,systemd
 
 [相关文档](https://blog.csdn.net/wash168/article/details/78495512)
+
+## mysql四大目录
+
+| 路径                   | 解释                      | 备注                                    |
+| ---------------------- | ------------------------- | --------------------------------------- |
+| /var/lib/mysql         | mysql数据库文件的存放路径 |                                         |
+| /usr/share/mysql       | 配置文件目录              | Mysql.server命令及配置文件              |
+| /usr/bin               | 相关命令目录              | Mysqladmin mysqldump等命令              |
+| /etc/init.d/mysql stop | 启停相关脚本              | 与systemctl stop mysqld.service作用相同 |
 
