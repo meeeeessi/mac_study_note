@@ -130,6 +130,24 @@ cat /etc/group|grep mysql
 
 
 
+### 5.join语句的优化
+
+两表join：select * form table1 left join table2 on table1.id=table2.id; 此时将table2中的id列设置索引，可以最优化sql（right join 同理）。
+
+三表join：select * form table1 left join table2 on table1.id=table2.id left join table3 on table2.id=table3.id;此时将table2，table3中的id列设置索引，可以最优化sql（right join 同理）。
+
+尽可能减少join语句中的nestedloop的循环总次数；“永远用小结果集驱动大的结果集”；（如：书类和书籍）
+
+优先优化nestedloop的内层循环；
+
+保证join语句中被驱动表上join条件字段已经被索引；
+
+当无法保证被驱动表的join条件字段被索引且内存资源充足的前提下，不要太吝啬joinbuffer的设置。
+
+查询条件包含范围查询的（如：where中有 > < between in 等）尽量不要为该列设置索引
+
+
+
 ## explain
 
 | 能干嘛：                     |
@@ -142,4 +160,6 @@ cat /etc/group|grep mysql
 | 6.每张表有多少行被优化器查询 |
 
 ![截屏2021-02-01 下午5.24.56](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-01 下午5.24.56.png)
+
+
 
