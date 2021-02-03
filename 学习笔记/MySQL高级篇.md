@@ -148,7 +148,7 @@ cat /etc/group|grep mysql
 
 
 
-## explain
+### 6.explain
 
 | 能干嘛：                     |
 | ---------------------------- |
@@ -163,3 +163,142 @@ cat /etc/group|grep mysql
 
 
 
+## 查询优化分析
+
+### 1.小表驱动大表
+
+类似嵌套循环Nested Loop
+
+![截屏2021-02-03 上午11.08.13](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 上午11.08.13.png)
+
+
+
+### 2.提高order by 的速度
+
+![IMG_0099](/Users/wangjingyu/mac_study_note/学习笔记/picture/IMG_0099.PNG)
+
+![IMG_6EE88501F3FB-1](/Users/wangjingyu/mac_study_note/学习笔记/picture/IMG_6EE88501F3FB-1.jpeg)
+
+
+
+### 3.慢查询日志
+
+**日志分析工具mysqldumpslow工作常用参考**
+
+![IMG_0101](/Users/wangjingyu/mac_study_note/学习笔记/picture/IMG_0101.PNG)
+
+
+
+### 4.批量插入数据脚本
+
+**开启存储函数创建（只有设置这个才能创建或修改存储函数）**
+
+![截屏2021-02-03 下午8.00.00](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午8.00.00.png)
+
+![截屏2021-02-03 下午8.00.12](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午8.00.12.png)
+
+![截屏2021-02-03 下午8.00.23](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午8.00.23.png)
+
+```sql
+CREATE TABLE `dept` (
+`id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+`deptno` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+`dname` VARCHAR(20) NOT NULL DEFAULT "",
+`loc` varchar(13) NOT NULL DEFAULT ""
+) ENGINE = InnoDB DEFAULT CHARSET = GBK;
+
+CREATE TABLE `emp` (
+`id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+`empno` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+`ename` VARCHAR(20) NOT NULL DEFAULT "",
+`job` VARCHAR(9) NOT NULL DEFAULT "",
+`mgr` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0,
+`hiredate` DATE NOT NULL,
+`sal` DECIMAL(7,2) NOT NULL,
+`comm` DECIMAL(7,2) NOT NULL,
+`deptno` MEDIUMINT UNSIGNED NOT NULL DEFAULT 0
+) ENGINE = InnoDB DEFAULT CHARSET = GBK;
+
+DELIMITER $$
+CREATE FUNCTION rand_string(n INT) RETURNS VARCHAR(255)
+BEGIN
+	DECLARE chars_str VARCHAR(100) DEFAULT 'abcdefghijklmnopqrstuvwsyz';
+	DECLARE return_str VARCHAR(255) DEFAULT '';
+	DECLARE i INT DEFAULT 0;
+	WHILE i<n DO
+	SET return_str = CONCAT(return_str,SUBSTRING(chars_str,FLOOR(1+RAND()*52),1));
+	SET i = i+1;
+	END WHILE;
+	RETURN return_str;
+END $$
+
+DELIMITER $$
+CREATE FUNCTION rand_num() RETURNS INT(5)
+BEGIN
+	DECLARE i INT DEFAULT 0;
+	SET i = FLOOR(100+RAND()*10);
+	RETURN i;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE insert_emp(IN START INT(10), IN max_num INT(10))
+BEGIN
+	DECLARE i INT DEFAULT 0;
+	SET autocommit = 0;
+	REPEAT
+	SET i = i+1;
+	INSERT INTO emp (empno,ename,job,mgr,hiredate,sal,comm,deptno) VALUES ((START+i),rand_string(6),'SALESMAN',0001,CURDATE(),2000,4000,rand_num());
+	UNTIL i = max_num
+	END REPEAT;
+	COMMIT;
+END $$
+
+DELIMITER $$
+CREATE PROCEDURE insert_dept(IN START INT(10), IN max_num INT(10))
+BEGIN
+	DECLARE i INT DEFAULT 0;
+	SET autocommit = 0;
+	REPEAT
+	SET i = i+1;
+	INSERT INTO dept (deptno,dname,loc) VALUES ((START+i),rand_string(10),rand_string(8));
+	UNTIL i = max_num
+	END REPEAT;
+	COMMIT;
+END $$
+
+drop function dbo.tablefun;
+```
+
+
+
+### 5.Show profile
+
+**5.1.开启profile**
+
+![截屏2021-02-03 下午7.52.45](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午7.52.45.png)
+
+![截屏2021-02-03 下午7.52.52](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午7.52.52.png)
+
+![截屏2021-02-03 下午7.52.58](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午7.52.58.png)
+
+
+
+**5.2.获取SQL语句的开销信息**
+
+![截屏2021-02-03 下午8.11.08](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午8.11.08.png)
+
+**5.3诊断具体SQL**
+
+show profile cpu,block io for query [Query_ID];
+
+![截屏2021-02-03 下午8.24.42](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-03 下午8.24.42.png)
+
+
+
+## 锁
+
+### 1.读锁案例
+
+查看表上加过的锁：show open tables;
+
+给表加锁：lock table [mylock] read, [book] write；
