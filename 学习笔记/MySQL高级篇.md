@@ -10,7 +10,7 @@
 
 [MySQL高级应用](https://developer.aliyun.com/course/1762)
 
-[阿里开发者学习中心](
+[阿里开发者学习中心]
 
 ## Linux版MySQL安装
 
@@ -163,6 +163,12 @@ cat /etc/group|grep mysql
 
 
 
+**6.1.优化using filesort**
+
+[相关文档](https://blog.csdn.net/lijingkuan/article/details/70341176?utm_medium=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-OPENSEARCH-3.control)
+
+
+
 ## 查询优化分析
 
 ### 1.小表驱动大表
@@ -297,8 +303,73 @@ show profile cpu,block io for query [Query_ID];
 
 ## 锁
 
-### 1.读锁案例
+### 1.表锁（偏读）
 
 查看表上加过的锁：show open tables;
 
 给表加锁：lock table [mylock] read, [book] write；
+
+取掉锁：unlock tables;
+
+**当给某个表添加读锁，在同一个终端中对自己的修改及查看其他表都会报错；在其他终端可以查询到被锁表中的数据，但是对该表的其他操作处于阻塞状态，直到另一个终端解锁，操作才可以正常执行。**
+
+**当给某个表添加写锁，在同一终端中对可以正常select被锁表，select其他表会报错；在其他终端select，update被锁表中的数据会处于阻塞状态，直到另一个终端解锁，操作才可以正常执行。**
+
+**简而言之，读锁会阻塞写，但是不会阻塞读，而写锁读和写都会堵塞。**
+
+![截屏2021-02-04 上午10.09.50](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 上午10.09.50.png)
+
+
+
+**1.1表锁分析**
+
+![截屏2021-02-04 上午10.17.30](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 上午10.17.30.png)
+
+![截屏2021-02-04 上午10.19.56](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 上午10.19.56.png)
+
+
+
+### 2.行锁（偏写）
+
+![截屏2021-02-04 上午11.32.04](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 上午11.32.04.png)
+
+
+
+**2.1行锁变表锁：当索引字段是自符类型，但是修改时where条件使用该索引时没有加 ‘ ’ 导致索引失效行锁变表锁。**
+
+
+
+**2.2间隙锁的危害**
+
+![截屏2021-02-04 下午12.32.49](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午12.32.49.png)
+
+![截屏2021-02-04 下午12.32.03](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午12.32.03.png)
+
+
+
+**2.3如何锁定一行**
+
+![截屏2021-02-04 下午3.55.56](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午3.55.56.png)
+
+
+
+**2.4结论**
+
+![截屏2021-02-04 下午4.06.22](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午4.06.22.png)
+
+
+
+**2.5行锁分析**
+
+![截屏2021-02-04 下午4.12.37](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午4.12.37.png)
+
+![截屏2021-02-04 下午4.16.23](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午4.16.23.png)
+
+ 
+
+## mysql主从复制
+
+### 1.复制的基本原理
+
+![截屏2021-02-04 下午4.23.37](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-04 下午4.23.37.png)
+
