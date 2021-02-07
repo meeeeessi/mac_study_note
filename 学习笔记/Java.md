@@ -26,6 +26,16 @@ if (split != null && split.length != 0) {
         ···
     }
 }
+//or
+String str3 = str1.substring(4,7)
+
+//查询某个字符第一次出现的下标
+String str ="1-2-3-4-5";
+int i = str.indexOf("-", 0);
+System.out.println(i);
+
+//查询某个字符最后一次出现的下标
+expression2.lastIndexOf(")")
 ```
 
 ### 2.相关文档
@@ -33,6 +43,18 @@ if (split != null && split.length != 0) {
 [2.1字符串切割相关文档](https://blog.csdn.net/julystroy/article/details/86475381)
 
 > 字符串切割以 [ 作为切割点时 需要 \\\\ 否则报错
+
+
+
+## 字符串包含
+
+```java
+String expression2="100-600-40*(3-1)";
+System.out.println(expression2.indexOf("("));
+//结果：11
+```
+
+
 
 ## 获取时间及格式转换
 
