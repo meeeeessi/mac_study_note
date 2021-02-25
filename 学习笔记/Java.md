@@ -1,5 +1,11 @@
 # Java
 
+## java基本类型封装类和原始类型的区别及好处
+
+[相关文档](https://blog.csdn.net/qq_33223761/article/details/82876032)
+
+
+
 ## 泛型
 
 ### 1.相关文档
@@ -106,3 +112,18 @@ Date date = formatter.parse(s);
 **3.1完善了Java多继承机制，由于每一个内部类都可以独立的继承接口或类，所以无论外部类是否继承或实现了某个类或接口，对于内部类没有影响。**
 
 **3.2方便写事件驱动程序。**
+
+
+
+## Comparable接口
+
+1：所有可以 “排序” 的类都实现了java.lang.Comparable接口，Comparable接口中只有一个方法。
+2：public int compareTo(Object obj) ;
+该方法：
+返回 0 表示 this == obj
+返回整数表示 this > obj
+返回负数表示 this < obj
+3:实现了 Comparable 接口的类通过实现 comparaTo 方法从而确定该类对象的排序方式。
+
+[相关文档](https://blog.csdn.net/nvd11/article/details/27393445?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=57e19771-1058-4aa5-945e-4607e883a365&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)
+
