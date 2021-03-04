@@ -1,8 +1,48 @@
 # Java
 
+## 什么是HashMap（一）初始容量 （16）和 负载因子（0.75）put get
+
+### [1.相关文档](https://blog.csdn.net/dagedeshu/article/details/100686999)
+
+
+
+## 请解释一下extends 和super 泛型限定符
+
+### [1.相关文档](https://blog.csdn.net/u014138443/article/details/90581974)
+
+
+
+## 是否可以在static环境中访问非static变量？
+
+### [1.相关文档](https://blog.csdn.net/snail_xinl/article/details/53427572)
+
+
+
+## 什么是值传递和引用传递
+
+### [1.相关文档1](https://blog.csdn.net/qq_40574571/article/details/90765349)
+
+### [2.相关文档2](https://blog.csdn.net/bjweimengshu/article/details/79799485?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)
+
+
+
+## equals()和HashCode()深入理解
+
+### [1.相关文档1](https://blog.csdn.net/wonad12/article/details/78958411)
+
+### [2.相关文档2](https://www.cnblogs.com/whgk/p/6071617.html)
+
+
+
+## java中普通代码块，构造代码块，静态代码块区别及代码示例
+
+### [1.相关文档](https://www.cnblogs.com/sophine/p/3531282.html)
+
+
+
 ## java基本类型封装类和原始类型的区别及好处
 
-[相关文档](https://blog.csdn.net/qq_33223761/article/details/82876032)
+### [1.相关文档](https://blog.csdn.net/qq_33223761/article/details/82876032)
 
 
 
@@ -14,11 +54,15 @@
 
 [1.2Java泛型在实际开发中的应用](https://www.cnblogs.com/ldh-better/p/7127308.html#_label1)
 
+
+
 ## Serializable
 
 ### 1.相关文档
 
 [1.1什么是Serializable](https://baijiahao.baidu.com/s?id=1633305649182361563&wfr=spider&for=pc)
+
+
 
 ## 字符串切割
 
@@ -127,3 +171,10 @@ Date date = formatter.parse(s);
 
 [相关文档](https://blog.csdn.net/nvd11/article/details/27393445?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&dist_request_id=57e19771-1058-4aa5-945e-4607e883a365&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control)
 
+
+
+## Socket连接
+
+服务端：ServerSocket提供的实例 ServerSocket server = new ServerSocket(端口号) 
+
+客户端：Socket提供的实例 Socket client = new Socket(IP地址，端口号)
