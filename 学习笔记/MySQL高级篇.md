@@ -161,6 +161,8 @@ cat /etc/group|grep mysql
 
 ![截屏2021-02-01 下午5.24.56](/Users/wangjingyu/mac_study_note/学习笔记/picture/截屏2021-02-01 下午5.24.56.png)
 
+[相关文档](https://blog.csdn.net/lvhaizhen/article/details/90763799)
+
 
 
 **6.1.优化using filesort**

@@ -1,8 +1,36 @@
 # Java
 
-## 什么是HashMap（一）初始容量 （16）和 负载因子（0.75）put get
+## JUC
 
-### [1.相关文档](https://blog.csdn.net/dagedeshu/article/details/100686999)
+### 1.volatile特性
+
+[1.1相关文档](https://baijiahao.baidu.com/s?id=1659385012966624306&wfr=spider&for=pc)
+
+[1.2相关文档](https://zhuanlan.zhihu.com/p/56540493)
+
+[1.3相关文档](https://www.cnblogs.com/iou123lg/p/9280639.html)
+
+
+
+## 集合
+
+### 1.HashMap
+
+[1.1什么是HashMap（一）初始容量 （16）和 负载因子（0.75）put get](https://blog.csdn.net/dagedeshu/article/details/100686999)
+
+[1.2HashMap的初始容量机制及扩容机制](https://blog.csdn.net/Apeopl/article/details/88918576?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161614611616780265458603%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161614611616780265458603&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v1~rank_blog_v1-2-88918576.pc_v1_rank_blog_v1&utm_term=HashMap)
+
+[1.3HashMap初始容量为什么是2的n次幂及扩容为什么是2倍的形式](https://blog.csdn.net/Apeopl/article/details/88935422?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161614611616780265458603%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161614611616780265458603&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v1~rank_blog_v1-1-88935422.pc_v1_rank_blog_v1&utm_term=HashMap)
+
+
+
+### 2.快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？
+
+[2.1相关文档](https://blog.csdn.net/tb9125256/article/details/80892859)
+
+### 3.数组和链表的时间复杂度
+
+[3.1相关文档](https://www.cnblogs.com/Stephen-Qin/p/13150087.html)
 
 
 
@@ -178,3 +206,9 @@ Date date = formatter.parse(s);
 服务端：ServerSocket提供的实例 ServerSocket server = new ServerSocket(端口号) 
 
 客户端：Socket提供的实例 Socket client = new Socket(IP地址，端口号)
+
+
+
+## Java运算符
+
+[Java &、&&、|、||、^、<<、>>、~、>>>等运算符](https://cloud.tencent.com/developer/article/1338265)
