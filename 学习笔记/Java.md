@@ -252,3 +252,10 @@ Date date = formatter.parse(s);
 ## Java运算符
 
 [Java &、&&、|、||、^、<<、>>、~、>>>等运算符](https://cloud.tencent.com/developer/article/1338265)
+
+异或（^）：参与运算的两个值，如果两个相应bit位相同，则结果为0，否则为1。即：0^0 = 0，1^0 = 1，0^1 = 1，1^1 = 0。
+
+## [Java中静态代码块、构造代码块、构造函数、普通代码块](https://www.cnblogs.com/ysocean/p/8194428.html)
+
+**静态代码块>构造代码块>构造函数>普通代码块**
+
